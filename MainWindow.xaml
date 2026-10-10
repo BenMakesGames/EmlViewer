@@ -1,0 +1,67 @@
+<Window x:Class="EmlViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="EmlViewer" Height="700" Width="900"
+        WindowStartupLocation="CenterScreen">
+  <DockPanel LastChildFill="True">
+    <Border DockPanel.Dock="Top" Background="#F3F3F3" Padding="12,10" BorderBrush="#DDD" BorderThickness="0,0,0,1">
+      <StackPanel>
+        <TextBlock x:Name="SubjectText" FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap"/>
+        <Grid Margin="0,6,0,0">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+          </Grid.RowDefinitions>
+          <TextBlock Grid.Row="0" Grid.Column="0" Text="From: " FontWeight="SemiBold" Margin="0,0,6,2"/>
+          <TextBlock Grid.Row="0" Grid.Column="1" x:Name="FromText" TextWrapping="Wrap" Margin="0,0,0,2"/>
+          <TextBlock Grid.Row="1" Grid.Column="0" Text="To: " FontWeight="SemiBold" Margin="0,0,6,2"/>
+          <TextBlock Grid.Row="1" Grid.Column="1" x:Name="ToText" TextWrapping="Wrap" Margin="0,0,0,2"/>
+          <TextBlock Grid.Row="2" Grid.Column="0" x:Name="CcLabel" Text="Cc: " FontWeight="SemiBold" Margin="0,0,6,2" Visibility="Collapsed"/>
+          <TextBlock Grid.Row="2" Grid.Column="1" x:Name="CcText" TextWrapping="Wrap" Margin="0,0,0,2" Visibility="Collapsed"/>
+          <TextBlock Grid.Row="3" Grid.Column="0" Text="Date: " FontWeight="SemiBold" Margin="0,0,6,0"/>
+          <TextBlock Grid.Row="3" Grid.Column="1" x:Name="DateText"/>
+        </Grid>
+      </StackPanel>
+    </Border>
+
+    <Border DockPanel.Dock="Bottom" x:Name="AttachmentsPanel" Background="#FAFAFA" Padding="12,8" BorderBrush="#DDD" BorderThickness="0,1,0,0" Visibility="Collapsed">
+      <StackPanel>
+        <TextBlock Text="Attachments" FontWeight="SemiBold" Margin="0,0,0,4"/>
+        <ItemsControl x:Name="AttachmentsList">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <WrapPanel/>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+        </ItemsControl>
+      </StackPanel>
+    </Border>
+
+    <TabControl x:Name="BodyTabs">
+      <TabItem Header="HTML" x:Name="HtmlTab">
+        <Grid>
+          <WebBrowser x:Name="HtmlView"/>
+          <Border x:Name="RemoteBlockedBanner" VerticalAlignment="Top" Background="#FFF8E1" BorderBrush="#E0C870" BorderThickness="0,0,0,1" Padding="10,6" Visibility="Collapsed">
+            <TextBlock Text="Remote content blocked for privacy. External links disabled." Foreground="#5A4A00"/>
+          </Border>
+        </Grid>
+      </TabItem>
+      <TabItem Header="Text" x:Name="TextTab">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+          <TextBox x:Name="TextView" IsReadOnly="True" BorderThickness="0" FontFamily="Consolas" TextWrapping="Wrap" Padding="12"/>
+        </ScrollViewer>
+      </TabItem>
+      <TabItem Header="Headers" x:Name="HeadersTab">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+          <TextBox x:Name="HeadersView" IsReadOnly="True" BorderThickness="0" FontFamily="Consolas" TextWrapping="NoWrap" Padding="12"/>
+        </ScrollViewer>
+      </TabItem>
+    </TabControl>
+  </DockPanel>
+</Window>
